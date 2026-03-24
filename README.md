@@ -11,7 +11,7 @@ Everything you need to start working with AI-powered development tools, installe
 | [Keyboard + Command Cheat Sheet](#keyboard--command-cheat-sheet) | Terminal reference | Hotkeys, typing, and commands for your terminal | |
 | [Step 1](#step-1---get-claude-running) | Get Claude Running | Sets up the foundation on your machine | ~5 min |
 | [Step 2](#step-2---dev-tools) | Dev Tools | Adds file converters, search, and utilities | ~3 min |
-| [Step 3](#step-3---claudeflow--context-hub) | ClaudeFlow + Context Hub | Multi-agent orchestration, API docs, Opus locked | ~3 min |
+| [Step 3](#step-3---ruflo--context-hub) | Ruflo + Context Hub | Multi-agent orchestration, API docs, Opus locked | ~3 min |
 | [Step 4](#step-4---design-tools) | Design Tools | UI/UX skills + component generation | ~3 min |
 | [Step 5](#step-5---second-brain-obsidian) | Second Brain (Obsidian) | Personal knowledge management system | 15-30+ min |
 | [Video Tutorials (coming soon)](#video-tutorials-coming-soon) | Walkthroughs | Shows you exactly how to do everything, screen by screen | |
@@ -42,7 +42,7 @@ There are five steps. Run them in order. Each one builds on the last.
 
 **[Step 2](#step-2---dev-tools)** is where you install the rest of your development tools. Things like file converters, search tools, and utilities. You run this from inside Warp after Step 1 is done. Much more straightforward.
 
-**[Step 3](#step-3---claudeflow--context-hub)** is where you set up ClaudeFlow and Context Hub. ClaudeFlow is the multi-agent orchestration layer that turns Claude into a full team of AI agents. Context Hub stops Claude from hallucinating when writing code that calls APIs.
+**[Step 3](#step-3---ruflo--context-hub)** is where you set up Ruflo and Context Hub. Ruflo is the multi-agent orchestration layer that turns Claude into a full team of AI agents. Context Hub stops Claude from hallucinating when writing code that calls APIs.
 
 **[Step 4](#step-4---design-tools)** gives Claude professional design skills and a library of production-ready UI components.
 
@@ -239,25 +239,25 @@ You don't need to do anything to make this work. It's already configured. Just k
 
 ---
 
-## Step 3 - ClaudeFlow + Context Hub
+## Step 3 - Ruflo + Context Hub
 
 [Back to top](#quick-nav)
 
-This step installs ClaudeFlow, the layer that turns Claude from a single assistant into a full team of coordinated AI agents. Each agent focuses on a particular task, work is split up, done with more attention to detail: power in numbers. It also installs Context Hub, which makes sure those agents don't hallucinate when writing code that talks to external APIs.
+This step installs Ruflo, a multi-agent swarming layer that turns Claude from a single assistant into a full team of coordinated AI agents. Each agent focuses on a particular task, work is split up, done with more attention to detail: power in numbers. It also installs Context Hub, which makes sure those agents don't hallucinate when writing code that talks to external APIs.
 
-### ClaudeFlow
+### Ruflo
 
-Built by [@ruvnet](https://github.com/ruvnet) ([repo](https://github.com/ruvnet/claude-flow)). This is an open-source multi-agent orchestration system that sits on top of Claude Code.
+Built by [@ruvnet](https://github.com/ruvnet) ([repo](https://github.com/ruvnet/ruflo)). This is an open-source multi-agent orchestration system that sits on top of Claude Code.
 
-> **Note:** We made one change from the default ClaudeFlow setup. Out of the box, ClaudeFlow uses a model routing system that can silently send some of your tasks to cheaper, weaker models like Haiku instead of Opus. If you're paying for Opus, you should always get Opus. Our install locks everything to Opus and disables the auto-downgrading. You can always turn routing back on later if you want to save on costs, but we default to giving you the best answers every time.
+> **Note:** We made one change from the default Ruflo setup. Out of the box, Ruflo uses a model routing system that can silently send some of your tasks to cheaper, weaker models like Haiku instead of Opus. If you're paying for Opus, you should always get Opus. Our install locks everything to Opus and disables the auto-downgrading. You can always turn routing back on later if you want to save on costs, but we default to giving you the best answers every time.
 
-Claude Code is already powerful on its own. But ClaudeFlow takes it to another level by adding coordinated multi-agent workflows, persistent memory, and smart cost optimization on top:
+Claude Code is already powerful on its own. But Ruflo takes it to another level by adding coordinated multi-agent workflows, persistent memory, and smart cost optimization on top:
 
 - **Multiple agents working in parallel.** Claude can spin up several agents at once, each focused on a different part of your task. A researcher, a coder, a reviewer, all working simultaneously instead of one after the other.
-- **Smart model routing (optional, disabled by default).** ClaudeFlow can route simple tasks to cheaper models to save costs. We disable this by default and lock everything to Opus so you always get the best reasoning. If you want to enable cost savings later, you can turn routing back on. But we'd rather you get the best results out of the box.
-- **Autonomous execution.** You describe what you want, and ClaudeFlow figures out how to break it down, assign it, and execute it. You don't have to micromanage every step.
-- **Persistent memory.** ClaudeFlow has its own memory system that agents share. Context doesn't get lost between tasks or sessions. Your agents remember what they learned.
-- **Self-healing workflows.** If something fails, ClaudeFlow can detect it and recover automatically instead of just stopping.
+- **Smart model routing (optional, disabled by default).** Ruflo can route simple tasks to cheaper models to save costs. We disable this by default and lock everything to Opus so you always get the best reasoning. If you want to enable cost savings later, you can turn routing back on. But we'd rather you get the best results out of the box.
+- **Autonomous execution.** You describe what you want, and Ruflo figures out how to break it down, assign it, and execute it. You don't have to micromanage every step.
+- **Persistent memory.** Ruflo has its own memory system that agents share. Context doesn't get lost between tasks or sessions. Your agents remember what they learned.
+- **Self-healing workflows.** If something fails, Ruflo can detect it and recover automatically instead of just stopping.
 
 ### Context Hub
 
@@ -269,7 +269,7 @@ When Claude writes code that calls an external API, it's working from its traini
 - **Persistent annotations.** You and Claude can add notes to docs that carry over across sessions. If you figure out a quirk with an API, it stays documented.
 - **Less hallucination.** This is the big one. Claude stops making up function names that don't exist.
 
-Together, ClaudeFlow and Context Hub are what take you from "using AI" to actually being an AI super user.
+Together, Ruflo and Context Hub are what take you from "using AI" to actually being an AI super user.
 
 ### Run Step 3
 
@@ -280,7 +280,7 @@ Once you're inside the Claude session, paste this and hit Enter:
 > [!IMPORTANT]
 > **Paste this into your Claude session:**
 > ```
-> run this command to set up ClaudeFlow and Context Hub: curl -fsSL https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/main/step-3/step-3-install.sh | bash
+> run this command to set up Ruflo and Context Hub: curl -fsSL https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/main/step-3/step-3-install.sh | bash
 > ```
 
 
@@ -294,9 +294,9 @@ You'll see "MCP" mentioned here and in future steps. MCP stands for Model Contex
 
 | Component | What it does |
 |-----------|-------------|
-| ClaudeFlow CLI | This is the command-line tool that manages everything below. |
-| MCP Server Connection | This connects ClaudeFlow to Claude Code so they can talk to each other (see above). |
-| ClaudeFlow Daemon | This runs in the background and coordinates agents, memory, and tasks. |
+| Ruflo CLI | This is the command-line tool that manages everything below. |
+| MCP Server Connection | This connects Ruflo to Claude Code so they can talk to each other (see above). |
+| Ruflo Daemon | This runs in the background and coordinates agents, memory, and tasks. |
 | Memory System | This gives your agents persistent, searchable memory across sessions. |
 | Smart Model Routing | This is disabled by default so you always get Opus. Can be turned on later to save up to 75% on costs by routing simple tasks to cheaper models. |
 | Opus Lock | This locks all tasks to Opus so nothing silently downgrades to a weaker model. You're paying for Opus, so you should always get Opus. |
@@ -305,7 +305,7 @@ You'll see "MCP" mentioned here and in future steps. MCP stands for Model Contex
 
 ### After Step 3
 
-Your core tools are installed. Continue to Step 4 for design tools and Step 5 for your Second Brain. Or open a new `cskip` session and try something ambitious. ClaudeFlow kicks in automatically when the task calls for it.
+Your core tools are installed. Continue to Step 4 for design tools and Step 5 for your Second Brain. Or open a new `cskip` session and try something ambitious. Ruflo kicks in automatically when the task calls for it.
 
 ---
 

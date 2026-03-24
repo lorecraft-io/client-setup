@@ -35,7 +35,7 @@ curl -fsSL "$BASE_URL/step-2/step-2-install.sh" | bash
 echo ""
 
 # Step 3
-echo -e "${YELLOW}>>> Running Step 3 — ClaudeFlow${NC}"
+echo -e "${YELLOW}>>> Running Step 3 — Ruflo${NC}"
 echo ""
 curl -fsSL "$BASE_URL/step-3/step-3-install.sh" | bash
 echo ""

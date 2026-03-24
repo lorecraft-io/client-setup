@@ -2,8 +2,8 @@
 set -uo pipefail
 
 # =============================================================================
-# Step 3 — ClaudeFlow Setup
-# Installs and configures ClaudeFlow multi-agent orchestration
+# Step 3 — Ruflo Setup
+# Installs and configures Ruflo multi-agent swarming orchestration
 # Run this in Warp after completing Steps 1 and 2
 # =============================================================================
 
@@ -51,73 +51,73 @@ verify_prerequisites() {
 }
 
 # -----------------------------------------------------------------------------
-# Install ClaudeFlow CLI
+# Install Ruflo CLI
 # -----------------------------------------------------------------------------
-install_claudeflow() {
-    info "Installing ClaudeFlow CLI..."
-    npm install -g @claude-flow/cli@latest 2>/dev/null \
-        || sudo npm install -g @claude-flow/cli@latest
+install_ruflo() {
+    info "Installing Ruflo CLI..."
+    npm install -g ruflo@latest 2>/dev/null \
+        || sudo npm install -g ruflo@latest
 
     # Verify it works
-    if npx @claude-flow/cli@latest --version &>/dev/null 2>&1; then
-        success "ClaudeFlow CLI installed ($(npx @claude-flow/cli@latest --version 2>/dev/null))"
+    if npx ruflo@latest --version &>/dev/null 2>&1; then
+        success "Ruflo CLI installed ($(npx ruflo@latest --version 2>/dev/null))"
     else
         # npx will download it on demand even if global install failed
-        success "ClaudeFlow CLI available via npx"
+        success "Ruflo CLI available via npx"
     fi
 }
 
 # -----------------------------------------------------------------------------
-# Add ClaudeFlow as MCP server to Claude Code
+# Add Ruflo as MCP server to Claude Code
 # -----------------------------------------------------------------------------
 configure_mcp() {
-    info "Adding ClaudeFlow as MCP server to Claude Code..."
+    info "Adding Ruflo as MCP server to Claude Code..."
 
     # Check if already configured
-    if claude mcp list 2>/dev/null | grep -q "claude-flow" 2>/dev/null; then
-        success "ClaudeFlow MCP server already configured"
+    if claude mcp list 2>/dev/null | grep -q "ruflo" 2>/dev/null; then
+        success "Ruflo MCP server already configured"
         return
     fi
 
-    claude mcp add claude-flow -- npx -y @claude-flow/cli@latest 2>/dev/null
+    claude mcp add ruflo -- npx -y ruflo@latest 2>/dev/null
 
-    if claude mcp list 2>/dev/null | grep -q "claude-flow" 2>/dev/null; then
-        success "ClaudeFlow MCP server added to Claude Code"
+    if claude mcp list 2>/dev/null | grep -q "ruflo" 2>/dev/null; then
+        success "Ruflo MCP server added to Claude Code"
     else
         # Try alternative approach — write directly to config
         warn "MCP add command may not have worked. Trying direct config..."
         CLAUDE_MCP_CONFIG="$HOME/.claude/claude_mcp_config.json"
         if [ -f "$CLAUDE_MCP_CONFIG" ]; then
-            if ! grep -q "claude-flow" "$CLAUDE_MCP_CONFIG" 2>/dev/null; then
-                jq '.mcpServers["claude-flow"] = {"command": "npx", "args": ["-y", "@claude-flow/cli@latest"]}' "$CLAUDE_MCP_CONFIG" > "${CLAUDE_MCP_CONFIG}.tmp" \
+            if ! grep -q "ruflo" "$CLAUDE_MCP_CONFIG" 2>/dev/null; then
+                jq '.mcpServers["ruflo"] = {"command": "npx", "args": ["-y", "ruflo@latest"]}' "$CLAUDE_MCP_CONFIG" > "${CLAUDE_MCP_CONFIG}.tmp" \
                     && mv "${CLAUDE_MCP_CONFIG}.tmp" "$CLAUDE_MCP_CONFIG"
             fi
         else
             cat > "$CLAUDE_MCP_CONFIG" << 'MCP_EOF'
 {
   "mcpServers": {
-    "claude-flow": {
+    "ruflo": {
       "command": "npx",
-      "args": ["-y", "@claude-flow/cli@latest"]
+      "args": ["-y", "ruflo@latest"]
     }
   }
 }
 MCP_EOF
         fi
-        success "ClaudeFlow MCP server configured (direct config)"
+        success "Ruflo MCP server configured (direct config)"
     fi
 }
 
 # -----------------------------------------------------------------------------
-# Start the ClaudeFlow daemon
+# Start the Ruflo daemon
 # -----------------------------------------------------------------------------
 start_daemon() {
-    info "Starting ClaudeFlow daemon..."
-    npx @claude-flow/cli@latest daemon start 2>/dev/null || true
+    info "Starting Ruflo daemon..."
+    npx ruflo@latest daemon start 2>/dev/null || true
 
     # Daemon starts in background. Check if PID file exists as proof it launched.
-    if [ -f ".claude-flow/daemon.pid" ] || npx @claude-flow/cli@latest daemon status 2>/dev/null | grep -q "PID" 2>/dev/null; then
-        success "ClaudeFlow daemon started"
+    if [ -f ".ruflo/daemon.pid" ] || npx ruflo@latest daemon status 2>/dev/null | grep -q "PID" 2>/dev/null; then
+        success "Ruflo daemon started"
     else
         warn "Daemon may not have started. Claude will start it automatically when needed."
     fi
@@ -127,26 +127,26 @@ start_daemon() {
 # Run doctor to verify and fix issues
 # -----------------------------------------------------------------------------
 run_doctor() {
-    info "Running ClaudeFlow doctor..."
-    npx @claude-flow/cli@latest doctor --fix 2>/dev/null
+    info "Running Ruflo doctor..."
+    npx ruflo@latest doctor --fix 2>/dev/null
 
-    success "ClaudeFlow doctor completed"
+    success "Ruflo doctor completed"
 }
 
 # -----------------------------------------------------------------------------
 # Initialize default configuration
 # -----------------------------------------------------------------------------
 init_config() {
-    info "Initializing ClaudeFlow configuration..."
+    info "Initializing Ruflo configuration..."
 
     # Only init if not already initialized
-    if [ -f ".claude-flow.json" ] || [ -f "claude-flow.json" ]; then
-        success "ClaudeFlow already initialized in this directory"
+    if [ -f ".ruflo.json" ] || [ -f "ruflo.json" ]; then
+        success "Ruflo already initialized in this directory"
         return
     fi
 
-    npx @claude-flow/cli@latest init 2>/dev/null || true
-    success "ClaudeFlow configuration initialized"
+    npx ruflo@latest init 2>/dev/null || true
+    success "Ruflo configuration initialized"
 }
 
 # -----------------------------------------------------------------------------
@@ -155,10 +155,10 @@ init_config() {
 init_memory_and_deps() {
     # Initialize memory backend
     info "Initializing memory database..."
-    npx @claude-flow/cli@latest memory configure --backend hybrid 2>/dev/null || true
+    npx ruflo@latest memory configure --backend hybrid 2>/dev/null || true
     success "Memory database initialized"
 
-    # Install TypeScript (needed for some ClaudeFlow features)
+    # Install TypeScript (needed for some Ruflo features)
     if ! command -v tsc &>/dev/null; then
         info "Installing TypeScript..."
         npm install -g typescript 2>/dev/null || true
@@ -178,13 +178,17 @@ configure_model_defaults() {
     info "Setting default model to Opus..."
 
     # Set default model to opus
-    npx @claude-flow/cli@latest config set --key "model.default" --value "opus" --scope project 2>/dev/null || true
+    npx ruflo@latest config set --key "model.default" --value "opus" 2>/dev/null || true
 
-    # Disable automatic model routing (prevents downgrading to Haiku)
-    npx @claude-flow/cli@latest config set --key "model.routing.enabled" --value false --scope project 2>/dev/null || true
+    # Set minimum model floor to opus
+    npx ruflo@latest config set --key "model.routing.minModel" --value "opus" 2>/dev/null || true
 
-    # Set minimum model floor to opus (safety net if routing re-enables)
-    npx @claude-flow/cli@latest config set --key "model.routing.minModel" --value "opus" --scope project 2>/dev/null || true
+    # Disable automatic model routing (CLI can't pass boolean false, so patch config directly)
+    CONFIG_FILE=".claude-flow/config.json"
+    if [ -f "$CONFIG_FILE" ] && command -v jq &>/dev/null; then
+        jq '.scopes.project["model.routing.enabled"] = false | .scopes.system["model.routing.enabled"] = false' "$CONFIG_FILE" > "${CONFIG_FILE}.tmp" \
+            && mv "${CONFIG_FILE}.tmp" "$CONFIG_FILE"
+    fi
 
     success "Model locked to Opus (no silent downgrading)"
 }
@@ -274,30 +278,30 @@ run_self_test() {
     TEST_PASS=0
     TEST_FAIL=0
 
-    # ClaudeFlow CLI available
-    if npx @claude-flow/cli@latest --version &>/dev/null 2>&1; then
-        success "TEST: ClaudeFlow CLI available"
+    # Ruflo CLI available
+    if npx ruflo@latest --version &>/dev/null 2>&1; then
+        success "TEST: Ruflo CLI available"
         TEST_PASS=$((TEST_PASS + 1))
     else
-        soft_fail "TEST: ClaudeFlow CLI not available"
+        soft_fail "TEST: Ruflo CLI not available"
         TEST_FAIL=$((TEST_FAIL + 1))
     fi
 
     # MCP server configured
-    if claude mcp list 2>/dev/null | grep -q "claude-flow" 2>/dev/null; then
-        success "TEST: ClaudeFlow MCP server configured"
+    if claude mcp list 2>/dev/null | grep -q "ruflo" 2>/dev/null; then
+        success "TEST: Ruflo MCP server configured"
         TEST_PASS=$((TEST_PASS + 1))
     else
-        soft_fail "TEST: ClaudeFlow MCP server not detected"
+        soft_fail "TEST: Ruflo MCP server not detected"
         TEST_FAIL=$((TEST_FAIL + 1))
     fi
 
     # Daemon available
-    if [ -f ".claude-flow/daemon.pid" ] || npx @claude-flow/cli@latest daemon status 2>/dev/null | grep -q "PID" 2>/dev/null; then
-        success "TEST: ClaudeFlow daemon available"
+    if [ -f ".ruflo/daemon.pid" ] || npx ruflo@latest daemon status 2>/dev/null | grep -q "PID" 2>/dev/null; then
+        success "TEST: Ruflo daemon available"
         TEST_PASS=$((TEST_PASS + 1))
     else
-        warn "TEST: ClaudeFlow daemon not detected (will auto-start when needed)"
+        warn "TEST: Ruflo daemon not detected (will auto-start when needed)"
         TEST_PASS=$((TEST_PASS + 1))
     fi
 
@@ -320,7 +324,7 @@ run_self_test() {
     fi
 
     # Model set to Opus
-    MODEL_CONFIG=$(npx @claude-flow/cli@latest config get --key "model.default" 2>/dev/null || echo "")
+    MODEL_CONFIG=$(npx ruflo@latest config get --key "model.default" 2>/dev/null || echo "")
     if echo "$MODEL_CONFIG" | grep -qi "opus" 2>/dev/null; then
         success "TEST: Model locked to Opus"
         TEST_PASS=$((TEST_PASS + 1))
@@ -330,10 +334,10 @@ run_self_test() {
     fi
 
     # Memory system configured
-    if [ -f ".claude-flow/config.yaml" ] && grep -q "hybrid\|memory" ".claude-flow/config.yaml" 2>/dev/null; then
+    if [ -f ".ruflo/config.yaml" ] && grep -q "hybrid\|memory" ".ruflo/config.yaml" 2>/dev/null; then
         success "TEST: Memory system configured"
         TEST_PASS=$((TEST_PASS + 1))
-    elif [ -d ".claude-flow/data/memory" ] || [ -d "data/memory" ]; then
+    elif [ -d ".ruflo/data/memory" ] || [ -d "data/memory" ]; then
         success "TEST: Memory system configured"
         TEST_PASS=$((TEST_PASS + 1))
     else
@@ -358,15 +362,15 @@ run_self_test() {
 print_summary() {
     echo ""
     echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo -e "${GREEN}  Step 3 Complete — ClaudeFlow is Ready${NC}"
+    echo -e "${GREEN}  Step 3 Complete — Ruflo is Ready${NC}"
     echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
-    echo "  ClaudeFlow is now installed and connected to Claude Code."
+    echo "  Ruflo is now installed and connected to Claude Code."
     echo ""
     echo "  What you can do now:"
     echo "    - Claude can spawn multiple agents to work in parallel"
     echo "    - Memory persists across sessions automatically"
-    echo "    - Smart model routing saves up to 75% on token costs"
+    echo "    - Model locked to Opus — no silent downgrades"
     echo "    - Swarm orchestration for complex multi-step tasks"
     echo ""
     echo "  Try it out. Open a new cskip session and ask Claude"
@@ -389,14 +393,14 @@ print_summary() {
 main() {
     echo ""
     echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo -e "${BLUE}  Step 3 — ClaudeFlow${NC}"
+    echo -e "${BLUE}  Step 3 — Ruflo${NC}"
     echo -e "${BLUE}  Multi-agent orchestration • macOS + Linux${NC}"
     echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
 
     detect_os
     verify_prerequisites
-    install_claudeflow
+    install_ruflo
     configure_mcp
     start_daemon
     run_doctor
