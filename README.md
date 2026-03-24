@@ -24,8 +24,6 @@ There are three steps. Run them in order. Each one builds on the last.
 
 **Step 3** *(coming soon)* sets up ClaudeFlow, the multi-agent orchestration layer that makes Claude way more powerful.
 
-After Step 1, you can ask Claude questions at any point. If something doesn't make sense, just ask. That's the whole point.
-
 ---
 
 ## Step 1 - Get Claude Running
