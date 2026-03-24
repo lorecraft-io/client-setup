@@ -149,6 +149,78 @@ init_config() {
 }
 
 # -----------------------------------------------------------------------------
+# Install Context Hub
+# -----------------------------------------------------------------------------
+install_context_hub() {
+    info "Installing Context Hub..."
+    npm install -g @aisuite/chub 2>/dev/null \
+        || sudo npm install -g @aisuite/chub
+
+    if command -v chub &>/dev/null; then
+        success "Context Hub installed ($(chub --version 2>/dev/null || echo 'available'))"
+    else
+        # May work via npx even if global install didn't link
+        if npx @aisuite/chub --version &>/dev/null 2>&1; then
+            success "Context Hub available via npx"
+        else
+            soft_fail "Context Hub installation failed"
+            return
+        fi
+    fi
+}
+
+# -----------------------------------------------------------------------------
+# Set up Context Hub skill for Claude Code
+# -----------------------------------------------------------------------------
+configure_context_hub_skill() {
+    SKILL_DIR="$HOME/.claude/skills/get-api-docs"
+
+    if [ -f "$SKILL_DIR/SKILL.md" ]; then
+        success "Context Hub skill already configured"
+        return
+    fi
+
+    info "Setting up Context Hub skill for Claude Code..."
+    mkdir -p "$SKILL_DIR"
+
+    cat > "$SKILL_DIR/SKILL.md" << 'SKILL_EOF'
+---
+name: get-api-docs
+description: Fetch curated API documentation to prevent hallucination. Use when writing code that calls external APIs.
+---
+
+# API Documentation Retrieval
+
+When you need to write code that calls an external API, use Context Hub to get accurate, up-to-date documentation instead of relying on training data.
+
+## Usage
+
+Search for available docs:
+```bash
+chub search <library-name>
+```
+
+Get specific docs for a language:
+```bash
+chub get <library>/<endpoint> --lang <py|js|ts|go|rust>
+```
+
+Add notes for future sessions:
+```bash
+chub annotate <doc-id> "<your note>"
+```
+
+## When to use this skill
+- Before writing any API integration code
+- When you're unsure about function signatures or parameters
+- When the user asks you to use a specific library you haven't verified
+- Always prefer Context Hub docs over your training data for API calls
+SKILL_EOF
+
+    success "Context Hub skill configured at $SKILL_DIR"
+}
+
+# -----------------------------------------------------------------------------
 # Self-test
 # -----------------------------------------------------------------------------
 run_self_test() {
@@ -186,6 +258,24 @@ run_self_test() {
     else
         warn "TEST: ClaudeFlow daemon not running (will auto-start when needed)"
         TEST_PASS=$((TEST_PASS + 1))
+    fi
+
+    # Context Hub
+    if command -v chub &>/dev/null || npx @aisuite/chub --version &>/dev/null 2>&1; then
+        success "TEST: Context Hub available"
+        TEST_PASS=$((TEST_PASS + 1))
+    else
+        soft_fail "TEST: Context Hub not available"
+        TEST_FAIL=$((TEST_FAIL + 1))
+    fi
+
+    # Context Hub skill
+    if [ -f "$HOME/.claude/skills/get-api-docs/SKILL.md" ]; then
+        success "TEST: Context Hub skill configured"
+        TEST_PASS=$((TEST_PASS + 1))
+    else
+        soft_fail "TEST: Context Hub skill not found"
+        TEST_FAIL=$((TEST_FAIL + 1))
     fi
 
     # Memory system
@@ -257,6 +347,8 @@ main() {
     start_daemon
     run_doctor
     init_config
+    install_context_hub
+    configure_context_hub_skill
     run_self_test
     print_summary
 }

@@ -9,11 +9,11 @@ Everything you need to start working with AI-powered development tools, installe
 | [Before You Start](#before-you-start) | Requirements | What you need before running anything | |
 | [How It Works](#how-it-works) | Overview | How the steps fit together | |
 | [Keyboard + Command Cheat Sheet](#keyboard--command-cheat-sheet) | Terminal reference | Hotkeys, typing, and commands for your terminal | |
-| [Update (not your first time?)](#not-your-first-time-here) | Catch up | One command to update everything | ~2 min |
+| [Update (been here before?)](#been-here-before) | Catch up | One command to update everything | ~2 min |
 | [Step 1](#step-1---get-claude-running) | Get Claude Running | Sets up the foundation on your machine | ~5 min |
 | [Step 2](#step-2---dev-tools) | Dev Tools | Adds file converters, search, and utilities | ~3 min |
-| [Step 3](#step-3---claudeflow) | ClaudeFlow | Multi-agent orchestration, 75% cost savings | ~3 min |
-| [Step 4](#step-4---context-hub-coming-soon) | Context Hub | Coming soon | |
+| [Step 3](#step-3---claudeflow--context-hub) | ClaudeFlow + Context Hub | Multi-agent orchestration, API docs, 75% cost savings | ~3 min |
+| [Step 4](#step-4---coming-soon) | Coming soon | | |
 | [Step 5](#step-5---coming-soon) | Coming soon | | |
 | [Staying Up to Date](#staying-up-to-date) | Update command | Re-run everything, catch new steps | |
 
@@ -48,7 +48,7 @@ There are three steps. Run them in order. Each one builds on the last.
 
 If you already have Claude Code working on your machine, you can skip Step 1 entirely. Just make sure you have [Warp](https://www.warp.dev) installed (we use it for the Shift+Tab permissions toggle), then jump straight to [Step 2](#step-2---dev-tools). Everything will work the same. You can paste the install commands directly in Warp, or if you prefer, download this repo as a ZIP from GitHub, unzip it, and tell Claude to run the scripts from whatever folder they landed in.
 
-### Not your first time here?
+### Been here before?
 
 If you've already been through the setup before and just want to make sure you're up to date, you don't need to redo everything manually. This one command will re-run all the steps, skip anything you already have, and install anything new that's been added since your last visit.
 
@@ -88,7 +88,9 @@ This step is the foundation. It installs the minimum needed to get Claude Code w
 
 ### macOS / Linux
 
-Open Terminal and paste this command:
+**How to open Terminal:** On Mac, press **Cmd+Space** to open Spotlight, type **Terminal**, and hit Enter. On Linux, look for "Terminal" in your applications menu, or press **Ctrl+Alt+T**.
+
+Paste this command and hit Enter:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/main/step-1/step-1-install.sh | bash
@@ -96,7 +98,9 @@ curl -fsSL https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/ma
 
 ### Windows
 
-Open PowerShell and paste this command:
+**How to open PowerShell:** Press the **Windows key**, type **PowerShell**, and click on it.
+
+Paste this command and hit Enter:
 
 ```powershell
 irm https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/main/step-1/step-1-install.ps1 | iex
@@ -129,6 +133,8 @@ After the script finishes, press **Ctrl+C** if anything is still running, close 
 #### 1a. Open Warp
 
 Open **Warp** (it was just installed by the script above).
+
+**How to find Warp:** On Mac, press **Cmd+Space**, type **Warp**, and hit Enter. On Windows, press the **Windows key**, type **Warp**, and click on it. On Linux, look for "Warp" in your applications menu.
 
 Warp will ask you to create an account. Go ahead and sign up. **The free plan is all you need.** No payment required for Warp.
 
@@ -252,11 +258,11 @@ You don't need to do anything to make this work. It's already configured. Just k
 
 ---
 
-## Step 3 - ClaudeFlow
+## Step 3 - ClaudeFlow + Context Hub
 
 [Back to top](#quick-nav)
 
-This step installs ClaudeFlow, the layer that turns Claude from a single assistant into a full team of coordinated AI agents.
+This step installs ClaudeFlow, the layer that turns Claude from a single assistant into a full team of coordinated AI agents. Each agent focuses on a particular task, work is split up, done with more attention to detail: power in numbers. It also installs Context Hub, which makes sure those agents don't hallucinate when writing code that talks to external APIs.
 
 ### What ClaudeFlow does
 
@@ -268,7 +274,15 @@ Without ClaudeFlow, Claude works alone. One conversation, one task at a time. Cl
 - **Persistent memory.** ClaudeFlow has its own memory system that agents share. Context doesn't get lost between tasks or sessions. Your agents remember what they learned.
 - **Self-healing workflows.** If something fails, ClaudeFlow can detect it and recover automatically instead of just stopping.
 
-In short, this is what takes you from "using AI" to actually being an AI super user.
+### What Context Hub does
+
+When Claude writes code that calls an external API, it's working from its training data, which can be outdated or just wrong. Context Hub fixes that by giving Claude access to curated, up-to-date API documentation on demand.
+
+- **Accurate API docs.** Claude can look up the real function signatures, parameters, and usage patterns instead of guessing from memory.
+- **Persistent annotations.** You and Claude can add notes to docs that carry over across sessions. If you figure out a quirk with an API, it stays documented.
+- **Less hallucination.** This is the big one. Claude stops making up function names that don't exist.
+
+Together, ClaudeFlow and Context Hub are what take you from "using AI" to actually being an AI super user.
 
 ### Run Step 3
 
@@ -297,6 +311,8 @@ Claude will run the install for you. Same as Step 2. If Claude tells you to rest
 | ClaudeFlow Daemon | This runs in the background and coordinates agents, memory, and tasks. |
 | Memory System | This gives your agents persistent, searchable memory across sessions. |
 | Smart Model Routing | This automatically picks the cheapest model that can handle each task, saving up to 75% on costs. |
+| Context Hub | This gives Claude access to curated, up-to-date API documentation so it stops hallucinating function names. |
+| Context Hub Skill | This teaches Claude when and how to look up API docs automatically before writing integration code. |
 
 ### After Step 3
 
@@ -306,7 +322,7 @@ More steps are being added below. Check back or run the update command to stay c
 
 ---
 
-## Step 4 - Context Hub *(coming soon)*
+## Step 4 - Coming Soon
 
 [Back to top](#quick-nav)
 
