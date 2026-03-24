@@ -289,12 +289,16 @@ run this command to set up ClaudeFlow and Context Hub: irm https://raw.githubuse
 
 Claude will run the install for you. Same as Step 2. If Claude tells you to restart your terminal, close the window, reopen Warp, type `cskip`, and let Claude know where you left off.
 
+### Quick note: what's an MCP?
+
+You'll see "MCP" mentioned here and in future steps. MCP stands for Model Context Protocol. Think of it as a plugin system for Claude. When you connect an MCP to Claude Code, you're giving Claude access to a new tool or data source it didn't have before. Claude can then use that tool automatically whenever it's relevant. You don't have to manage it. You just connect it once and Claude takes it from there.
+
 ### What This Step Installs
 
 | Component | What it does |
 |-----------|-------------|
 | ClaudeFlow CLI | This is the command-line tool that manages everything below. |
-| MCP Server Connection | This connects ClaudeFlow to Claude Code so they can talk to each other. |
+| MCP Server Connection | This connects ClaudeFlow to Claude Code so they can talk to each other (see above). |
 | ClaudeFlow Daemon | This runs in the background and coordinates agents, memory, and tasks. |
 | Memory System | This gives your agents persistent, searchable memory across sessions. |
 | Smart Model Routing | This automatically picks the cheapest model that can handle each task, saving up to 75% on costs. |
