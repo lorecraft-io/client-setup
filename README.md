@@ -185,21 +185,23 @@ You can always switch back to normal mode later for regular work. This is just f
 
 #### 2c. Run the install
 
-Exit the Claude session first (type `/exit`), then paste this command in Warp:
+Once you're inside the Claude session, paste this and hit Enter:
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/main/step-2/step-2-install.sh | bash
+**macOS / Linux:**
+```
+run this command to install my dev tools: curl -fsSL https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/main/step-2/step-2-install.sh | bash
 ```
 
-**Windows** (in Warp or PowerShell):
-
-```powershell
-irm https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/main/step-2/step-2-install.ps1 | iex
+**Windows:**
 ```
+run this command to install my dev tools: irm https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/main/step-2/step-2-install.ps1 | iex
+```
+
+Claude will run the install for you. You can watch it work. If Claude tells you to restart your terminal at any point, just close the window, reopen Warp, type `cskip` again, and let Claude know where you left off. It'll pick right back up.
 
 ### What This Step Installs
 
-These are the tools that get installed automatically when you run the command above:
+These are the tools that Claude will install for you:
 
 | Tool | What it does |
 |------|-------------|
