@@ -514,6 +514,17 @@ install_claude_code() {
         command -v claude &>/dev/null || fail "Claude Code installation failed"
         success "Claude Code installed"
     fi
+
+    # Add cskip shortcut — launches Claude with auto-approve permissions
+    if ! grep -q 'alias cskip' "$SHELL_RC" 2>/dev/null; then
+        info "Adding 'cskip' shortcut to $SHELL_RC..."
+        echo "" >> "$SHELL_RC"
+        echo "# Claude Code shortcuts" >> "$SHELL_RC"
+        echo "alias cskip='claude --dangerously-skip-permissions'" >> "$SHELL_RC"
+        success "Shortcut added: type 'cskip' to launch Claude (auto-approve mode)"
+    else
+        success "cskip shortcut already configured"
+    fi
 }
 
 # -----------------------------------------------------------------------------
@@ -537,6 +548,27 @@ verify_claude_auth() {
     echo -e "    ${GREEN}claude --version${NC}"
     echo ""
     echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo ""
+    echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${BLUE}  Two Ways to Launch Claude${NC}"
+    echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo ""
+    echo "  Normal mode — Claude asks permission before each action:"
+    echo ""
+    echo -e "    ${GREEN}claude${NC}"
+    echo ""
+    echo "  Auto-approve mode — Claude runs without asking (faster,"
+    echo "  best for guided sessions and Script 1 setup):"
+    echo ""
+    echo -e "    ${GREEN}cskip${NC}"
+    echo ""
+    echo "  'cskip' is a shortcut we just added. It runs:"
+    echo "  claude --dangerously-skip-permissions"
+    echo ""
+    echo "  You can switch between modes any time by exiting Claude"
+    echo "  (type /exit) and relaunching with the other command."
+    echo ""
+    echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 }
 
 # -----------------------------------------------------------------------------

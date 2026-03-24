@@ -307,6 +307,20 @@ function Install-ClaudeCode {
             Write-Fail "Claude Code installation failed"
         }
     }
+
+    # Add cskip function to PowerShell profile — launches Claude with auto-approve
+    $profilePath = $PROFILE.CurrentUserAllHosts
+    $profileDir = Split-Path $profilePath -Parent
+    if (!(Test-Path $profileDir)) { New-Item -ItemType Directory -Path $profileDir -Force | Out-Null }
+    if (!(Test-Path $profilePath)) { New-Item -ItemType File -Path $profilePath -Force | Out-Null }
+
+    if (!(Select-String -Path $profilePath -Pattern "cskip" -Quiet -ErrorAction SilentlyContinue)) {
+        Write-Info "Adding 'cskip' shortcut to PowerShell profile..."
+        Add-Content -Path $profilePath -Value "`n# Claude Code shortcuts`nfunction cskip { claude --dangerously-skip-permissions @args }"
+        Write-Ok "Shortcut added: type 'cskip' to launch Claude (auto-approve mode)"
+    } else {
+        Write-Ok "cskip shortcut already configured"
+    }
 }
 
 # ==========================================================================
@@ -330,6 +344,27 @@ function Show-AuthPrompt {
     Write-Host "    claude --version" -ForegroundColor Green
     Write-Host ""
     Write-Host "  ==========================================================" -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "  ==========================================================" -ForegroundColor Blue
+    Write-Host "    Two Ways to Launch Claude" -ForegroundColor Blue
+    Write-Host "  ==========================================================" -ForegroundColor Blue
+    Write-Host ""
+    Write-Host "  Normal mode - Claude asks permission before each action:"
+    Write-Host ""
+    Write-Host "    claude" -ForegroundColor Green
+    Write-Host ""
+    Write-Host "  Auto-approve mode - Claude runs without asking (faster,"
+    Write-Host "  best for guided sessions and Script 1 setup):"
+    Write-Host ""
+    Write-Host "    cskip" -ForegroundColor Green
+    Write-Host ""
+    Write-Host "  'cskip' is a shortcut we just added. It runs:"
+    Write-Host "  claude --dangerously-skip-permissions"
+    Write-Host ""
+    Write-Host "  You can switch between modes any time by exiting Claude"
+    Write-Host "  (type /exit) and relaunching with the other command."
+    Write-Host ""
+    Write-Host "  ==========================================================" -ForegroundColor Blue
 }
 
 # ==========================================================================
