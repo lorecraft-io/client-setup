@@ -1,12 +1,12 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Script 0 — Client Environment Setup (Windows)
+    Step 1 — Get Claude Running (Windows)
 .DESCRIPTION
     Installs all prerequisites + Claude Code on Windows 10/11
     Uses winget (built into Windows 10 1709+ and Windows 11)
 .USAGE
-    irm https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/main/script-0-install.ps1 | iex
+    irm https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/main/step-1/step-1-install.ps1 | iex
 #>
 
 $ErrorActionPreference = "Continue"
