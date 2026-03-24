@@ -72,7 +72,7 @@ Step 1 installs [Warp](https://www.warp.dev) as your terminal. Here's why:
 - **Built for AI workflows.** Warp handles long-running output, code blocks, and multi-step processes better than a standard terminal.
 - **Works on Mac, Linux, and Windows.** Same experience everywhere.
 
-After the script finishes, close your old terminal and open Warp. Everything from here on happens in Warp.
+After the script finishes, press **Ctrl+C** if anything is still running, close your old terminal, and open Warp. Everything from here on happens in Warp.
 
 ### After the Script Finishes
 
@@ -122,15 +122,7 @@ Claude Code requires a paid plan. The install is free, but to actually use it yo
 
 **Our recommendation:** Start with **Pro** ($20/month). If you find yourself getting rate-limited or waiting for usage to reset, upgrade to Max. You'll know pretty quickly which tier fits your workflow.
 
-#### 1d. Launch Claude
-
-In Warp, type:
-
-```bash
-cskip
-```
-
-If this is your first time, Claude will automatically open a browser and ask you to log in. Sign in with your Anthropic account and you're in. Move on to Step 2.
+That's it for Step 1. Move on to Step 2.
 
 ---
 
@@ -138,9 +130,27 @@ If this is your first time, Claude will automatically open a browser and ask you
 
 [Back to top](#quick-nav)
 
-Installs the development tools that Claude uses when working on your projects. File converters, search tools, and utilities. You run this in Warp.
+Installs the development tools that Claude uses when working on your projects. File converters, search tools, and utilities.
 
-### Why auto-approve mode?
+#### 2a. Open Warp
+
+If you haven't already, close your old terminal (press **Ctrl+C** if something is still running, then close the window) and open **Warp**.
+
+> If you see "Agent Oz" instead of a terminal, press **Esc**.
+
+#### 2b. Launch Claude
+
+In Warp, type:
+
+```bash
+cskip
+```
+
+If this is your first time, Claude will automatically open a browser and ask you to log in. Sign in with your Anthropic account.
+
+Once you're in a Claude session, you can ask it questions, and it will help you through the rest of the process. This is where it stops being manual and starts being a conversation.
+
+#### Why auto-approve mode?
 
 When Claude runs in normal mode, it asks your permission before every single action. Every file it reads, every command it runs. During a setup that installs 10+ tools, that means dozens of approval prompts. There's no sound or notification when Claude is waiting for you, so if you look away for a moment, the whole process just sits there frozen until you come back and type "y".
 
@@ -148,9 +158,9 @@ When Claude runs in normal mode, it asks your permission before every single act
 
 You can always switch back to normal mode later for regular work. This is just for setup.
 
-### Run Step 2
+#### 2c. Run the install
 
-In Warp, paste:
+Exit the Claude session first (type `/exit`), then paste this in Warp:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/lorecraft-io/ai-super-user-setup/main/step-2/step-2-install.sh | bash
