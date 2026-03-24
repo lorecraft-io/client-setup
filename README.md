@@ -18,7 +18,7 @@ Everything you need to start working with AI-powered development tools, installe
 
 There are three steps. Run them in order. Each one builds on the last.
 
-**Step 1** is the only part that feels "techy." It gets the bare essentials on your machine so Claude (your AI assistant) and Warp (your new terminal) can run. You paste one command and it handles the rest, but there are a few manual steps after it finishes, like setting up your Warp account and logging into Claude. This is the most hands-on part of the entire process. Once you get through it, everything else is basically a conversation between you and Claude.
+**Step 1** is the only part that feels "techy." It gets the bare essentials on your machine so Claude (your AI assistant) and Warp (your new terminal) can run. You paste one command and it handles the rest, but there are a few manual steps after it finishes, like setting up your Warp account and logging into Claude. This is the most hands-on part of the entire process. After Step 1, you can ask Claude questions at any point. If something doesn't make sense, just ask. That's the whole point.
 
 **Step 2** installs the rest of your development tools. File converters, search tools, utilities. You run this from inside Warp after Step 1 is done. Much more straightforward.
 
