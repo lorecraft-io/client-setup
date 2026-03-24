@@ -24,6 +24,10 @@ There are three steps. Run them in order. Each one builds on the last.
 
 **Step 3** *(coming soon)* is where you set up ClaudeFlow, the multi-agent orchestration layer that makes Claude way more powerful.
 
+### Already have Claude Code installed?
+
+If you already have Claude Code working on your machine, you can skip Step 1 entirely. Just make sure you have [Warp](https://www.warp.dev) installed (we use it for the Shift+Tab permissions toggle), then jump straight to [Step 2](#step-2---dev-tools). Everything will work the same. You can paste the install commands directly in Warp, or if you prefer, download this repo as a ZIP from GitHub, unzip it, and tell Claude to run the scripts from whatever folder they landed in.
+
 ### Bonus
 
 Want to get better at using the terminal in general? Check out **Terminal Academy**, a gamified way to learn terminal commands and workflows. It makes the learning curve way less painful. *(Link coming soon)*
