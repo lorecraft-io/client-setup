@@ -4,11 +4,12 @@ Everything you need to start working with AI-powered development tools, installe
 
 ## Quick Nav
 
-| | Step | What it does | Time |
+| | Section | What it does | Time |
 |---|------|-------------|------|
 | [Before You Start](#before-you-start) | Requirements | What you need before running anything | |
-| [Step 1](#step-1---get-claude-running) | Get Claude Running | Sets up the foundation on your machine | ~5 min |
+| [How It Works](#how-it-works) | Overview | How the steps fit together | |
 | [Keyboard + Command Cheat Sheet](#keyboard--command-cheat-sheet) | Terminal reference | Hotkeys, typing, and commands for your terminal | |
+| [Step 1](#step-1---get-claude-running) | Get Claude Running | Sets up the foundation on your machine | ~5 min |
 | [Step 2](#step-2---dev-tools) | Dev Tools | Adds file converters, search, and utilities | ~3 min |
 | [Step 3](#step-3---claudeflow-coming-soon) | ClaudeFlow | Multi-agent orchestration | Coming soon |
 
@@ -23,9 +24,13 @@ Everything you need to start working with AI-powered development tools, installe
 - **Don't run it as admin/root.** Just open your terminal normally and paste the command.
 - If anything is already installed on your machine, the scripts will detect that and skip it automatically.
 
+> **A note on Windows:** This setup was built and tested on macOS. The Windows PowerShell versions were generated to match, but I don't have a Windows machine to test on personally. If you run into any issues on Windows, let me know and we'll get it sorted.
+
 ---
 
 ## How It Works
+
+[Back to top](#quick-nav)
 
 There are three steps. Run them in order. Each one builds on the last.
 
@@ -42,6 +47,14 @@ If you already have Claude Code working on your machine, you can skip Step 1 ent
 ### Bonus
 
 Want to get better at using the terminal in general? Check out [Terminal Academy](https://github.com/lorecraft-io/terminal-academy), a gamified way to learn terminal commands and workflows. It makes the learning curve way less painful.
+
+---
+
+## [Keyboard + Command Cheat Sheet](CHEATSHEET.md)
+
+[Back to top](#quick-nav)
+
+This is a quick reference for terminal hotkeys, typing basics, launching Claude, and useful commands. **Read this before starting the steps**, especially if you're new to working in a terminal.
 
 ---
 
@@ -139,15 +152,7 @@ Claude Code requires a paid plan. The software itself is free to install, but to
 
 **Our recommendation:** Start with **Pro** ($20/month). If you find yourself getting rate-limited or waiting for usage to reset, upgrade to Max. You'll know pretty quickly which tier fits your workflow.
 
-That's it for Step 1. Before moving on, check out the cheat sheet below. Then continue to Step 2.
-
----
-
-## [Keyboard + Command Cheat Sheet](CHEATSHEET.md)
-
-[Back to top](#quick-nav)
-
-This is a quick reference for terminal hotkeys, typing basics, launching Claude, and useful commands. **Read this before starting Step 2**, especially if you're new to working in a terminal.
+That's it for Step 1. Continue to Step 2.
 
 ---
 
@@ -223,4 +228,3 @@ These are the tools that Claude will install for you:
 [Back to top](#quick-nav)
 
 This step installs and configures ClaudeFlow, the multi-agent orchestration system that coordinates multiple AI agents to work on complex tasks together. You'll need to complete Steps 1 and 2 before running this one.
-
