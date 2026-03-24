@@ -14,7 +14,7 @@ Everything you need to start working with AI-powered development tools, installe
 | [Step 3](#step-3---claudeflow--context-hub) | ClaudeFlow + Context Hub | Multi-agent orchestration, API docs, Opus locked | ~3 min |
 | [Step 4](#step-4---design-tools) | Design Tools | UI/UX skills + component generation | ~3 min |
 | [Step 5](#step-5---second-brain-obsidian) | Second Brain (Obsidian) | Personal knowledge management system | 15-30+ min |
-| [Video Tutorials](#video-tutorials) | Walkthroughs | Coming soon | |
+| [Video Tutorials (coming soon)](#video-tutorials-coming-soon) | Walkthroughs | Shows you exactly how to do everything, screen by screen | |
 | [Staying Up to Date](#staying-up-to-date) | Update command | Re-run everything, catch new steps | |
 
 ---
@@ -629,7 +629,7 @@ If things don't look right, here are the most common issues and how to fix them.
 
 ---
 
-## Video Tutorials
+## Video Tutorials *(coming soon)*
 
 [Back to top](#quick-nav)
 
