@@ -57,14 +57,20 @@ success "Vault found at: $VAULT_PATH"
 echo ""
 echo "  Looking for Claude data export..."
 CLAUDE_ZIP=""
-for candidate in \
-    "$HOME/Desktop/claude"*.zip \
-    "$HOME/Downloads/claude"*.zip \
-    "$HOME/Desktop/Claude"*.zip \
-    "$HOME/Downloads/Claude"*.zip; do
-    if [ -f "$candidate" ] 2>/dev/null; then
-        CLAUDE_ZIP="$candidate"
-        break
+# Search broadly for any zip that looks like a Claude export
+for search_dir in "$HOME/Desktop" "$HOME/Downloads" "$HOME/Documents"; do
+    if [ -d "$search_dir" ]; then
+        FOUND=$(find "$search_dir" -maxdepth 2 -iname "*claude*" -name "*.zip" -type f 2>/dev/null | head -1)
+        if [ -n "$FOUND" ]; then
+            CLAUDE_ZIP="$FOUND"
+            break
+        fi
+        # Also check for Anthropic-named exports
+        FOUND=$(find "$search_dir" -maxdepth 2 -iname "*anthropic*" -name "*.zip" -type f 2>/dev/null | head -1)
+        if [ -n "$FOUND" ]; then
+            CLAUDE_ZIP="$FOUND"
+            break
+        fi
     fi
 done
 
