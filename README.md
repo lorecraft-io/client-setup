@@ -24,6 +24,10 @@ There are three steps. Run them in order. Each one builds on the last.
 
 **Step 3** *(coming soon)* sets up ClaudeFlow, the multi-agent orchestration layer that makes Claude way more powerful.
 
+### Bonus
+
+Want to get better at using the terminal in general? Check out **Terminal Academy**, a gamified way to learn terminal commands and workflows. It makes the learning curve way less painful. *(Link coming soon)*
+
 ---
 
 ## Step 1 - Get Claude Running
