@@ -64,13 +64,40 @@ After Script 0 finishes, **open Warp and run all future scripts from there.** Yo
 
 ### After Script 0
 
-The script will tell you to log in to Claude Code:
+#### 1. Open Warp
+
+Close your current terminal. Open **Warp** (it was just installed).
+
+- If Warp asks you to create an account, you can — **the free version is all you need.**
+- You can also skip sign-up and use it without an account.
+
+#### 2. Configure Warp
+
+Before doing anything else, change one setting:
+
+1. Open Warp settings (Cmd+Comma on Mac, Ctrl+Comma on Windows/Linux)
+2. Go to **Features**
+3. The very first setting is **Default Mode** — make sure it's set to **Terminal**, not Agent
+
+This keeps Warp acting as a normal terminal so Claude Code runs properly.
+
+#### 3. Log in to Claude Code
+
+In Warp, paste:
 
 ```bash
 claude auth login
 ```
 
-This opens a browser — sign in with your Anthropic account. Once that's done, you're ready for Script 1.
+This opens a browser — sign in with your Anthropic account.
+
+#### 4. Verify it works
+
+```bash
+claude --version
+```
+
+If you see a version number, you're set. Move on to Script 1.
 
 ---
 
