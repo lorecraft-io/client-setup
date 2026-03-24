@@ -102,23 +102,15 @@ Claude Code requires a paid plan. The install is free, but to actually use it yo
 
 **Our recommendation:** Start with **Pro** ($20/month). If you find yourself getting rate-limited or waiting for usage to reset, upgrade to Max. You'll know pretty quickly which tier fits your workflow.
 
-#### 4. Log in to Claude Code
+#### 4. Launch Claude
 
-In Warp, paste:
-
-```bash
-claude auth login
-```
-
-This opens a browser — sign in with your Anthropic account.
-
-#### 5. Verify it works
+In Warp, type:
 
 ```bash
-claude --version
+cskip
 ```
 
-If you see a version number, you're set. Move on to Script 1.
+If this is your first time, Claude will automatically open a browser and ask you to log in. Sign in with your Anthropic account and you're in. Move on to Script 1.
 
 ---
 
