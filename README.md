@@ -11,7 +11,7 @@ Everything you need to start working with AI-powered development tools, installe
 | [Keyboard + Command Cheat Sheet](#keyboard--command-cheat-sheet) | Terminal reference | Hotkeys, typing, and commands for your terminal | |
 | [Step 1](#step-1---get-claude-running) | Get Claude Running | Sets up the foundation on your machine | ~5 min |
 | [Step 2](#step-2---dev-tools) | Dev Tools | Adds file converters, search, and utilities | ~3 min |
-| [Step 3](#step-3---claudeflow--context-hub) | ClaudeFlow + Context Hub | Multi-agent orchestration, API docs, 75% cost savings | ~3 min |
+| [Step 3](#step-3---claudeflow--context-hub) | ClaudeFlow + Context Hub | Multi-agent orchestration, API docs, Opus locked | ~3 min |
 | [Step 4](#step-4---design-tools) | Design Tools | UI/UX skills + component generation | ~3 min |
 | [Step 5](#step-5---coming-soon) | Coming soon | | |
 | [Staying Up to Date](#staying-up-to-date) | Update command | Re-run everything, catch new steps | |
@@ -256,7 +256,7 @@ Built by [@ruvnet](https://github.com/ruvnet) ([repo](https://github.com/ruvnet/
 Claude Code is already powerful on its own. But ClaudeFlow takes it to another level by adding coordinated multi-agent workflows, persistent memory, and smart cost optimization on top:
 
 - **Multiple agents working in parallel.** Claude can spin up several agents at once, each focused on a different part of your task. A researcher, a coder, a reviewer, all working simultaneously instead of one after the other.
-- **Saves up to 75% on token costs.** ClaudeFlow uses smart model routing. Simple tasks get handled by faster, cheaper models. Complex reasoning goes to the heavy hitters. You stop paying full price for things that don't need it.
+- **Smart model routing (optional, disabled by default).** ClaudeFlow can route simple tasks to cheaper models to save costs. We disable this by default and lock everything to Opus so you always get the best reasoning. If you want to enable cost savings later, you can turn routing back on. But we'd rather you get the best results out of the box.
 - **Autonomous execution.** You describe what you want, and ClaudeFlow figures out how to break it down, assign it, and execute it. You don't have to micromanage every step.
 - **Persistent memory.** ClaudeFlow has its own memory system that agents share. Context doesn't get lost between tasks or sessions. Your agents remember what they learned.
 - **Self-healing workflows.** If something fails, ClaudeFlow can detect it and recover automatically instead of just stopping.
@@ -305,7 +305,8 @@ You'll see "MCP" mentioned here and in future steps. MCP stands for Model Contex
 | MCP Server Connection | This connects ClaudeFlow to Claude Code so they can talk to each other (see above). |
 | ClaudeFlow Daemon | This runs in the background and coordinates agents, memory, and tasks. |
 | Memory System | This gives your agents persistent, searchable memory across sessions. |
-| Smart Model Routing | This automatically picks the cheapest model that can handle each task, saving up to 75% on costs. |
+| Smart Model Routing | This is disabled by default so you always get Opus. Can be turned on later to save up to 75% on costs by routing simple tasks to cheaper models. |
+| Opus Lock | This locks all tasks to Opus so nothing silently downgrades to a weaker model. You're paying for Opus, so you should always get Opus. |
 | Context Hub | This gives Claude access to curated, up-to-date API documentation so it stops hallucinating function names. |
 | Context Hub Skill | This teaches Claude when and how to look up API docs automatically before writing integration code. |
 

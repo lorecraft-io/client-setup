@@ -172,6 +172,24 @@ init_memory_and_deps() {
 }
 
 # -----------------------------------------------------------------------------
+# Lock model to Opus — prevent silent downgrade to Haiku
+# -----------------------------------------------------------------------------
+configure_model_defaults() {
+    info "Setting default model to Opus..."
+
+    # Set default model to opus
+    npx @claude-flow/cli@latest config set --key "model.default" --value "opus" --scope project 2>/dev/null || true
+
+    # Disable automatic model routing (prevents downgrading to Haiku)
+    npx @claude-flow/cli@latest config set --key "model.routing.enabled" --value false --scope project 2>/dev/null || true
+
+    # Set minimum model floor to opus (safety net if routing re-enables)
+    npx @claude-flow/cli@latest config set --key "model.routing.minModel" --value "opus" --scope project 2>/dev/null || true
+
+    success "Model locked to Opus (no silent downgrading)"
+}
+
+# -----------------------------------------------------------------------------
 # Install Context Hub
 # -----------------------------------------------------------------------------
 install_context_hub() {
@@ -301,6 +319,16 @@ run_self_test() {
         TEST_FAIL=$((TEST_FAIL + 1))
     fi
 
+    # Model set to Opus
+    MODEL_CONFIG=$(npx @claude-flow/cli@latest config get --key "model.default" 2>/dev/null || echo "")
+    if echo "$MODEL_CONFIG" | grep -qi "opus" 2>/dev/null; then
+        success "TEST: Model locked to Opus"
+        TEST_PASS=$((TEST_PASS + 1))
+    else
+        soft_fail "TEST: Model default not set to Opus"
+        TEST_FAIL=$((TEST_FAIL + 1))
+    fi
+
     # Memory system configured
     if [ -f ".claude-flow/config.yaml" ] && grep -q "hybrid\|memory" ".claude-flow/config.yaml" 2>/dev/null; then
         success "TEST: Memory system configured"
@@ -374,6 +402,7 @@ main() {
     run_doctor
     init_config
     init_memory_and_deps
+    configure_model_defaults
     install_context_hub
     configure_context_hub_skill
     run_self_test
